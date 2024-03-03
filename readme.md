@@ -40,4 +40,7 @@ sudo systemctl daemon-reload
 
 sudo service collect-temperature start 
 
+Enable at boot:
+sudo systemctl enable collect-temperature
+
 Should start at boot.
