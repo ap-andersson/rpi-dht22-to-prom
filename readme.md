@@ -2,6 +2,19 @@
 
 Simple python script to get temperature and humidity from a DHT22 sensor and publish as a prometheus metrics endpoint.
 
+## Python pre-reqs
+Following needs to be run for the script to work:
+
+```
+sudo apt install python3 python3-pip libsystemd-dev
+sudo pip3 install Adafruit_DHT
+sudo pip3 install systemd-python
+
+# Testrun with:
+python3 collect-temp.py
+```
+
+
 ## Creating service to autostart script on boot
 sudo nano /etc/systemd/system/collect-temperature.service 
 
