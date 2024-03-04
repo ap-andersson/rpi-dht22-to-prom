@@ -6,6 +6,7 @@ import logging
 
 from prometheus_client import Gauge, start_http_server
 from systemd.journal import JournalHandler
+from gpiozero import CPUTemperature
 
 # Setup logging to the Systemd Journal
 log = logging.getLogger('dht22_sensor')
@@ -16,6 +17,7 @@ log.setLevel(logging.INFO)
 # Celsius and Fahrenheit
 gh = Gauge('dht22_humidity_percent', 'Humidity percentage measured by the DHT22 Sensor')
 gt = Gauge('dht22_temperature', 'Temperature measured by the DHT22 Sensor')
+ct = Gauge('cpu_temp', 'RPI CPU Temp')
 
 READ_INTERVAL = 10 #seconds
 SENSOR = Adafruit_DHT.DHT22
@@ -33,13 +35,15 @@ def main():
 
         try:
             humidity, temperature = Adafruit_DHT.read_retry(SENSOR,PIN)
+            cpu_temp = CPUTemperature().temperature
 
             if humidity is not None and temperature is not None:
                 # Update the gauge with the sensor data
-                print("Temp:{0:0.1f}*C, Humidity: {1:0.1f}%".format(temperature, humidity))
-                log.info("Temp:{0:0.1f}*C, Humidity: {1:0.1f}%".format(temperature, humidity))
+                print("Temp:{0:0.1f}*C, Humidity: {1:0.1f}%, CPU Temp: {2:0.1f}*C".format(temperature, humidity, cpu_temp))
+                log.info("Temp:{0:0.1f}*C, Humidity: {1:0.1f}%, CPU Temp: {2:0.1f}*C".format(temperature, humidity, cpu_temp))
                 gh.set(humidity)
                 gt.set(temperature)
+                ct.set(cpu_temp)
             else:
                 log.info("None values, skipping")
                 print("None values, skipping")

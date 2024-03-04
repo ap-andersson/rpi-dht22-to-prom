@@ -9,6 +9,7 @@ Following needs to be run for the script to work:
 sudo apt install python3 python3-pip libsystemd-dev
 sudo pip3 install Adafruit_DHT
 sudo pip3 install systemd-python
+sudo pip3 install gpiozero
 
 # Testrun with:
 python3 collect-temp.py
