@@ -2,6 +2,8 @@
 
 Simple python script to get temperature and humidity from a DHT22 sensor and publish as a prometheus metrics endpoint.
 
+There is also a Dockerfile and docker-compose.yml that can be used. Note that it needs privileged access in its current state. But considering you have to build it yourself and the script is a few rows its not a big security concern. 
+
 ## Python pre-reqs
 Following needs to be run for the script to work:
 

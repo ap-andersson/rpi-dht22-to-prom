@@ -1,0 +1,11 @@
+services:
+  collect-temp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /dev/gpiomem:/dev/gpiomem
+    ports:
+      - 8000:8000
+    privileged: true
+    restart: unless-stopped
